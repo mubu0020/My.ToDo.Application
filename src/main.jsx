@@ -7,10 +7,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 function ToDoApplication() {
     const [input, setInput] = useState('');
-    const [todo, setTodo] = useState('');
+    const [tasks, setTasks] = useState([]);
 
     function handleClick(){
-        setTodo(input);
+        setTasks(prevTasks => [...prevTasks, input]);
+        setInput("");
     }
 
     return <>
@@ -19,7 +20,9 @@ function ToDoApplication() {
         <div>
             <input type="text" onChange={(e) => setInput(e.target.value)} value={input} />
             <button onClick={handleClick}>Registrer</button>
-            <p>Du har registrert {todo}</p>
+            <ul>
+                {tasks.map((task, index) => <li key={index}>{task}</li>)}
+            </ul>
         </div>
     </>;
 }
